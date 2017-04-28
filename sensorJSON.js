@@ -11,32 +11,6 @@ var variable=30;
 var izquierdaDerecha=0;
 var frenteParteTrasera=0;
 var direccion=0;
-function createServer(){
-	var app = express();
-	app.use(bodyParser.json()); // for parsing application/json
-	app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-	app.use(function(req, res, next) {
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-		next();
-	});
-
-	var server = http.createServer(app).listen(puerto,function(){
-		var host = server.address().address;
-		var port = server.address().port;
-		/*console.log("host: ",host);
-		console.log("port: ",port);
-		console.log("server :", server.address());*/
-		console.log('Escuchando por peticiones en http://%s:%s', host, port)
-	});
-	
-	app.route("/getData")
-	.get(function(req, res){
-		requestData( res);
-	})
-	
-	
-}
 
 function iniciaPubNub(){
 	try {
@@ -94,11 +68,9 @@ function requestData( handler){
 
 }
 iniciaPubNub();
-//createServer();
 
 var express = require('express');
 var app = express();
-
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 8080;
