@@ -11,7 +11,8 @@ var variable=30;
 var izquierdaDerecha=0;
 var frenteParteTrasera=0;
 var direccion=0;
-
+var porcentajeBateria=0;
+var datosCelular={izquierdaDerecha:0,frenteParteTrasera:0,direccion:0,porcentajeBateria:0};
 function iniciaPubNub(){
 	try {
 			var pubnub = new PubNub({
@@ -38,11 +39,19 @@ function iniciaPubNub(){
 			    },
 			    message: function(message) {
 			    	console.dir(message);
-			    	izquierdaDerecha=message.message.incID;
-			    	frenteParteTrasera=message.message.incFT;
-			    	direccion=message.message.dir;
+			    	var canal=message.subscribedChannel;
+			    	switch(canal){
+			    		case  'canalOrientacion':
+			    			datosCelular.izquierdaDerecha=message.message.incID;
+			    			datosCelular.frenteParteTrasera=message.message.incFT;
+			    			datosCelular.direccion=message.message.dir;
+			    			break;
+			    		case 'canalBateria':
+			    			datosCelular.porcentajeBateria=message.message.porcentajeBateria;
+			    		break;
 
-			    	console.log("Izquierd Derecha:"+ izquierdaDerecha);
+			    	}
+			    
 			        // handle message
 			    },
 			    presence: function(presenceEvent) {
@@ -50,7 +59,7 @@ function iniciaPubNub(){
 			    }
 			});
 			pubnub.subscribe({
-			    channels: ['canalOrientacion']
+			    channels: ['canalOrientacion','canalBateria']
 			});
 			
 			
@@ -83,7 +92,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
 
     // ejs render automatically looks in the views folder
-    res.send({ok:true,izquierdaDerecha:izquierdaDerecha,frenteParteTrasera:frenteParteTrasera,direccion:direccion});
+    res.send(datosCelular);
 });
 
 app.listen(port, function() {
