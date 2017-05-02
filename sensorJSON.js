@@ -53,6 +53,10 @@ function iniciaPubNub(){
 			    			datosCelular.aceleracion=message.message.aceleracion;
 			    			datosCelular.aceleracionConGravedad=message.message.aceleracionConGravedad;
 			    		break;
+			    		case 'canalGPS':
+			    			datosCelular.latitud=message.message.latitud;
+			    			datosCelular.longitud=message.message.longitud;
+			    		break;
 
 			    	}
 			    
