@@ -49,6 +49,10 @@ function iniciaPubNub(){
 			    		case 'canalBateria':
 			    			datosCelular.porcentajeBateria=message.message.porcentajeBateria;
 			    		break;
+			    		case 'canalAceleracion':
+			    			datosCelular.aceleracion=message.message.aceleracion;
+			    			datosCelular.aceleracionConGravedad=message.message.aceleracionConGravedad;
+			    		break;
 
 			    	}
 			    
