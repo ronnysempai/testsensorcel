@@ -86,13 +86,18 @@ function requestData( handler){
 }
 iniciaPubNub();
 
-var express = require('express');
+//var express = require('express');
 var app = express();
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 8080;
-
-
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(function(req, res, next) {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		next();
+	});
+	//app.us
 // make express look in the public directory for assets (css/js/img)
 app.use(express.static(__dirname + '/public'));
 
