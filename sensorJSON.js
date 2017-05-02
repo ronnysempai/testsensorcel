@@ -67,7 +67,7 @@ function iniciaPubNub(){
 			    }
 			});
 			pubnub.subscribe({
-			    channels: ['canalOrientacion','canalBateria','canalAceleracion']
+			    channels: ['canalOrientacion','canalBateria','canalAceleracion','canalGPS']
 			});
 			
 			
